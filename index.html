@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lambretattoo - SP 2026</title>
+  
+  <!-- IMPORTAÇÃO EXPLICITA DA OSWALD DIRETO NO CABEÇALHO -->
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================================
+       1. CONFIGURAÇÕES BASES E SUPORTE TIPOGRÁFICO UNIVERSAL
+       ======================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Aplica Oswald de maneira forçada e estável para todos os dispositivos */
+    body {
+      background-color: #000000;
+      color: #f7943e;
+      font-family: 'Oswald', sans-serif !important;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .italic {
+      font-family: 'Oswald', sans-serif !important;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .text-shifted {
+      display: block;
+      text-align: left;
+      width: 100%;
+    }
+
+    .hidden-item {
+      display: none !important;
+    }
+
+    .section-heading-title {
+      font-family: 'Oswald', sans-serif !important;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 3.5rem;
+      line-height: 0.9;
+      color: #f7943e;
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+    /* ========================================================
+       2. HEADER FIXO (ÍCONES DO TOPO)
+       ======================================================== */
+    .main-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: flex-end; 
+      align-items: center;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .social-icons-top {
+      display: flex;
+      gap: 20px;
+      pointer-events: auto;
+    }
+
+    .custom-header-icon {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .custom-header-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* ========================================================
+       3. ANIMAÇÃO DE BALANÇO RÍGIDO (ESTILO FRAME-BY-FRAME)
+       ======================================================== */
+    @keyframes balancoRigidoMascote {
+      0%   { transform: rotate(0deg); }
+      25%  { transform: rotate(15deg); }   
+      50%  { transform: rotate(0deg); }    
+      75%  { transform: rotate(-15deg); }  
+      100% { transform: rotate(0deg); }    
+    }
+
+    /* ========================================================
+       4. SESSÃO 1: HOME (VISUAL VERTICAL COM MASCOTE EMBAIXO)
+       ======================================================== */
+    .section-home { 
+      min-height: 100vh; 
+      padding: 60px 40px 60px 40px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between; 
+      position: relative; 
+    }
+
+    .home-container { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 30px; 
+      width: 100%; 
+    }
+
+    .logo-image-container {
+      width: 100%;
+      max-width: 85%; 
+      margin-top: 10px;
+    }
+
+    .logo-title-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Bloco de Data e Localização Empilhado no Celular */
+    .home-meta { 
+      margin-top: 25px; 
+      font-size: 1.8rem; 
+      font-weight: 300; 
+      line-height: 1.2; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 4px; 
+      text-transform: uppercase;
+    } 
+
+    .home-specialties { 
+      font-size: 1rem; 
+      font-weight: 400; 
+      letter-spacing: 0.5px; 
+      margin-top: 20px; 
+      margin-bottom: 25px; 
+    }
+
+    .btn-action-view { 
+      color: #f7943e; 
+      text-decoration: none; 
+      font-weight: 700; 
+      font-size: 1.1rem; 
+    }
+
+    /* Mascote centralizado de volta na base no celular */
+    .home-right { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+    }
+
+    .mascote-container { 
+      width: 50%; 
+      max-width: 150px; 
+      animation: balancoRigidoMascote 0.8s steps(4) infinite; 
+      transform-origin: center center;
+    }
+
+    .mascote-img { 
+      width: 100%; 
+      height: auto; 
+      display: block; 
+    }
+
+    .scroll-indicator-home { 
+      position: absolute; 
+      bottom: 30px; 
+      right: 40px; 
+      font-style: italic; 
+      font-size: 0.9rem; 
+      letter-spacing: 2px; 
+    }
+    /* ========================================================
+       5. SESSÃO 2: BIO (COMPORTAMENTO MOBILE)
+       ======================================================== */
+    .section-bio {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #000000;
+    }
+
+    .bio-image-wrapper {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1440 / 1576; 
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bio-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .bio-gradient-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 35%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+    }
+
+    .bio-content-container {
+      padding: 40px;
+    }
+
+    .bio-title-name {
+      font-style: italic;
+      font-weight: 700;
+      font-size: 4.2rem;
+      line-height: 0.85;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .bio-paragraphs p {
+      font-size: 1.1rem;
+      line-height: 1.45;
+      margin-bottom: 20px;
+      font-weight: 300;
+      text-align: left;
+    }
+
+    /* ========================================================
+       6. GRIDS COMPARTILHADOS (GALERIA E FLASHS MOBILE)
+       ======================================================== */
+    .section-gallery, .section-flashs {
+      padding: 80px 40px;
+      background-color: #000000;
+    }
+
+    .section-gallery .section-heading-title, 
+    .section-flashs .section-heading-title {
+      margin-bottom: 40px;
+    }
+
+    .grid-layout-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 16px;
+      width: 100%;
+    }
+
+    .grid-thumb-item button {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      outline: none !important;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      overflow: hidden;
+      display: block;
+    }
+
+    .grid-thumb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      border: 2px solid #f7943e;
+    }
+
+    .link-btn-reserve {
+      display: block;
+      text-align: center;
+      margin-top: 8px;
+      color: #f7943e;
+      text-decoration: none;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    .btn-trigger-load-more {
+      display: block;
+      margin: 40px auto 0 auto;
+      background: none;
+      border: 1px solid #f7943e;
+      color: #f7943e;
+      font-style: italic;
+      font-size: 1rem;
+      padding: 12px 28px;
+      cursor: pointer;
+    }
+
+    /* ========================================================
+       7. JANELA POPUP EXPANDIDA (LIGHTBOX DIALOG)
+       ======================================================== */
+    dialog.lightbox-overlay-dialog {
+      border: none !important;
+      background: transparent !important;
+      max-width: 90vw;
+      max-height: 85vh;
+      margin: auto;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .lightbox-overlay-dialog img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      display: block;
+      border: 2px solid #f7943e;
+    }
+
+    .lightbox-overlay-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.94);
+    }
+
+    .lightbox-close-text {
+      display: block;
+      text-align: center;
+      color: #f7943e;
+      font-style: italic;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+    /* ========================================================
+       8. SESSÃO 5: FECHAMENTO / FOOTER (CENTRALIZADO MOBILE)
+       ======================================================== */
+    .section-closing-footer {
+      background-color: #000000;
+      padding: 100px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .closing-layout-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+    }
+
+    .closing-dates-block {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 320px;
+      margin-bottom: 60px;
+      align-items: center;
+    }
+
+    .row-date-1, .row-date-2, .row-date-3 {
+      display: flex;
+      align-items: baseline;
+      line-height: 0.85;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .row-date-1 { justify-content: center; }
+    .row-date-2 { justify-content: center; margin-left: 0; margin-top: 5px; }
+    .row-date-3 { justify-content: center; margin-left: 0; margin-top: 10px; }
+
+    .closing-dates-block .label-prefix {
+      font-size: 2.2rem;
+      margin-right: 10px;
+    }
+
+    .display-date, .display-date-shifted {
+      font-size: 6rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .display-year-footer {
+      font-size: 3.8rem;
+      font-weight: 700;
+    }
+
+    .closing-details-block {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .txt-vagas-limitadas {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .txt-address-location {
+      font-weight: 300;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .booking-action-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .txt-label-reservas {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    .footer-icon-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .custom-footer-icon {
+      width: 45px;
+      height: auto;
+      display: block;
+    }
+
+    .footer-copyright-text {
+      width: 100%; 
+      text-align: center; 
+      margin-top: 80px; 
+      font-size: 0.85rem; 
+      font-weight: 300; 
+      opacity: 0.6; 
+      letter-spacing: 1px;
+    }
+
+    /* ========================================================
+       9. COMPORTAMENTO E PROPORÇÕES ELÁSTICAS PARA DESKTOP (1440px)
+       ======================================================== */
+    @media (min-width: 1024px) {
+      
+      .section-home, .section-bio, .section-gallery, .section-flashs, .section-closing-footer {
+        padding-left: 10%;
+        padding-right: 10%;
+      }
+
+      /* HOME DESKTOP PADRÃO SEGURO */
+      .section-home {
+        justify-content: center;
+      }
+
+      .home-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 5%;
+      }
+
+      .home-left { 
+        width: 50%; 
+        transform: translateY(-40px); 
+      } 
+      
+      .home-right { 
+        width: 45%; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+      }
+      
+      .logo-image-container { 
+        width: 100%;
+        max-width: 520px; 
+      }
+      
+      .home-meta { 
+        font-size: 2.2rem; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 6px; 
+        margin-top: 20px; 
+      } 
+      
+      .home-specialties { font-size: 1.2rem; margin-top: 30px; }
+      
+      .mascote-container { 
+        width: 100%;
+        max-width: 260px; 
+      } 
+      
+      .scroll-indicator-home { right: 10%; font-size: 1rem; display: block !important; }
+
+      /* BIO DESKTOP */
+      .section-bio { 
+        flex-direction: row-reverse; 
+        align-items: center; 
+        justify-content: space-between; 
+        gap: 80px; 
+      }
+      .bio-image-wrapper { 
+        width: 35vw; 
+        max-height: 80vh; 
+      }
+      .bio-gradient-overlay { 
+        display: none; 
+      }
+      .bio-content-container { 
+        flex: 1; 
+        padding: 0; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: flex-start; 
+        text-align: left; 
+      }
+      .bio-title-name { 
+        font-size: 5.5rem; 
+      }
+      .bio-paragraphs p { 
+        font-size: 1.1rem; 
+        text-align: left; 
+      }
+
+      /* GRID RESPONSIVO EM DESKTOP: 6 Colunas */
+      .section-gallery .grid-layout-container,
+      .section-flashs .grid-layout-container {
+        grid-template-columns: repeat(6, 1fr); 
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .section-flashs { 
+        flex-direction: column; 
+        align-items: flex-start; 
+      }
+
+      /* FECHAMENTO DESKTOP */
+      .closing-layout-container { flex-direction: row; align-items: flex-start; justify-content: space-between; max-width: 1100px; margin: 0 auto; }
+      .closing-dates-block { width: 50%; margin-bottom: 0; align-items: flex-start; }
+      .display-date, .display-date-shifted { font-size: 7.5rem; }
+      .closing-dates-block .label-prefix { font-size: 2.8rem; }
+      .display-year-footer { font-size: 5rem; }
+      .row-date-1 { justify-content: flex-start; }
+      .row-date-2 { justify-content: flex-start; margin-left: 22%; margin-top: -5px; }
+      .row-date-3 { justify-content: flex-start; margin-left: 55%; margin-top: 5px; }
+      .closing-details-block { width: 45%; text-align: right; align-items: flex-end; gap: 20px; }
+      .txt-vagas-limitadas { font-size: 1.8rem; }
+      .txt-address-location { font-size: 1.3rem; margin-bottom: 50px; }
+      .footer-copyright-text { text-align: left; margin-top: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER FIXO (Ícones do topo) -->
+  <header class="main-header">
+    <div class="social-icons-top">
+      <a href="whatsapp://send?phone=59897192430&text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20seus%20trabalhos." target="_blank" aria-label="WhatsApp">
+        <img src="icone-wpp.png" alt="WhatsApp" class="custom-header-icon">
+      </a>
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+        <img src="icone-ig.png" alt="Instagram" class="custom-header-icon">
+      </a>
+    </div>
+  </header>
+
+  <!-- SESSÃO 1: HOME (VISUAL PADRÃO COM MASCOTE EMBAIXO NO CELULAR) -->
+  <section class="section-home">
+    <div class="home-container">
+      
+      <!-- Lado Esquerdo (Contém textos e logo no PC) -->
+      <div class="home-left">
+        <div class="logo-image-container">
+          <img src="lambretattoo.png" alt="Lambre Tattoo" class="logo-title-img">
+        </div>
+        
+        <div class="home-meta">
+          <p class="meta-location">SÃO PAULO</p>
+          <p class="meta-month">OUT - NOV</p>
+          <p class="meta-year">2026</p>
+        </div>
+        
+        <p class="home-specialties">TATTOOS EXCLUSIVAS / FLASH / PONTILHISMO</p>
+        <a href="#flashs-section" class="btn-action-view">[ VER FLASHS ]</a>
+      </div>
+      
+      <!-- Lado Direito (Contém o mascote na base no celular) -->
+      <div class="home-right">
+        <div class="mascote-container">
+          <img src="logo_lambreta.png" alt="Mascote Tatu" class="mascote-img">
+        </div>
+      </div>
+
+    </div>
+    <div id="home-scroll-indicator" class="scroll-indicator-home">↓ SCROLL</div>
+  </section>
+  <!-- SESSÃO 2: BIO -->
+  <section class="section-bio">
+    <div class="bio-image-wrapper">
+      <img src="artista.png" alt="Lambreta trabalhando" class="bio-img">
+      <div class="bio-gradient-overlay"></div>
+    </div>
+    <div class="bio-content-container">
+      <h2 class="bio-title-name">
+        <span class="line-1">GUSTAVO</span>
+        <span class="line-2 text-shifted">LAMBRETA</span>
+      </h2>
+      <div class="bio-paragraphs">
+        <p>É o nome artístico de Gustavo Casari Monreal. Formado em Design Gráfico pelo Mackenzie, em São Paulo, em 2014. Iniciou sua carreira artística no começo dos anos 2000, trabalhando como ilustrador, quadrinista e designer gráfico. Ao longo dos anos, acumulou uma experiência ampla e diversificada, até se tornar tatuador, em 2017.</p>
+        <p>Em 2018, mudou-se para Montevidéu, no Uruguai, onde atualmente atende no estúdio <a href="https://instagram.com" target="_blank" style="color: #f7943e; text-decoration: underline; font-weight: 700;">Mudra Art Studio</a>.</p>
+        <p>O trabalho de Lambreta caracteriza-se pelo blackwork, pelo desenho de linhas precisas e pelo pontilhismo. Influenciado pelo universo dos quadrinhos, pelos livros infantis, pelo surrealismo, pelas vanguardas artísticas e pela tatuagem old school, atualmente desenvolve um estilo próprio e reconhecível, dedicado à representação de animais antropomórficos, paisagens oníricas, objetos cotidianos e da figura feminina.</p>
+      </div>
+    </div>
+  </section>
+  <!-- SESSÃO 3: GALERIA -->
+  <section class="section-gallery">
+    <h2 class="section-heading-title">GALERIA</h2>
+    <div class="grid-layout-container" id="galleryContainer">
+      
+      <!-- Imagens Iniciais Visíveis por Padrão -->
+      <div class="grid-thumb-item">
+        <button onclick="document.getElementById('modal-g1').showModal()"><img src="thumb-item1.png" alt="Tattoo 1"></button>
+        <dialog id="modal-g1" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item1.png" alt="Tattoo 1"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item">
+        <button onclick="document.getElementById('modal-g2').showModal()"><img src="thumb-item2.png" alt="Tattoo 2"></button>
+        <dialog id="modal-g2" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item2.png" alt="Tattoo 2"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item">
+        <button onclick="document.getElementById('modal-g3').showModal()"><img src="thumb-item3.png" alt="Tattoo 3"></button>
+        <dialog id="modal-g3" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item3.png" alt="Tattoo 3"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item">
+        <button onclick="document.getElementById('modal-g4').showModal()"><img src="thumb-item4.png" alt="Tattoo 4"></button>
+        <dialog id="modal-g4" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item4.png" alt="Tattoo 4"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item">
+        <button onclick="document.getElementById('modal-g5').showModal()"><img src="thumb-item5.png" alt="Tattoo 5"></button>
+        <dialog id="modal-g5" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item5.png" alt="Tattoo 5"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item">
+        <button onclick="document.getElementById('modal-g6').showModal()"><img src="thumb-item6.png" alt="Tattoo 6"></button>
+        <dialog id="modal-g6" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item6.png" alt="Tattoo 6"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+
+      <!-- Imagens Ocultas Inicialmente (hidden-item) -->
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g7').showModal()"><img src="thumb-item7.png" alt="Tattoo 7"></button>
+        <dialog id="modal-g7" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item7.png" alt="Tattoo 7"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g8').showModal()"><img src="thumb-item8.png" alt="Tattoo 8"></button>
+        <dialog id="modal-g8" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item8.png" alt="Tattoo 8"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g9').showModal()"><img src="thumb-item9.png" alt="Tattoo 9"></button>
+        <dialog id="modal-g9" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item9.png" alt="Tattoo 9"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g10').showModal()"><img src="thumb-item10.png" alt="Tattoo 10"></button>
+        <dialog id="modal-g10" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item10.png" alt="Tattoo 10"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g11').showModal()"><img src="thumb-item11.png" alt="Tattoo 11"></button>
+        <dialog id="modal-g11" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item11.png" alt="Tattoo 11"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g12').showModal()"><img src="thumb-item12.png" alt="Tattoo 12"></button>
+        <dialog id="modal-g12" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item12.png" alt="Tattoo 12"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g13').showModal()"><img src="thumb-item13.png" alt="Tattoo 13"></button>
+        <dialog id="modal-g13" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item13.png" alt="Tattoo 13"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g14').showModal()"><img src="thumb-item14.png" alt="Tattoo 14"></button>
+        <dialog id="modal-g14" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item14.png" alt="Tattoo 14"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+      <div class="grid-thumb-item hidden-item">
+        <button onclick="document.getElementById('modal-g15').showModal()"><img src="thumb-item15.png" alt="Tattoo 15"></button>
+        <dialog id="modal-g15" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-item15.png" alt="Tattoo 15"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+      </div>
+    </div>
+    <button class="btn-trigger-load-more" onclick="revelarMaisItens('galleryContainer', this, 9)">[ VER MAIS TRABALHOS ]</button>
+  </section>
+  <!-- SESSÃO 4: FLASHS DISPONÍVEIS -->
+  <section id="flashs-section" class="section-flashs">
+    <div class="flashs-header-container">
+      <h2 class="section-heading-title">FLASHS<br><span class="text-shifted">DISPONÍVEIS</span></h2>
+      <p class="flashs-description-text">Aqui, alguns flashs que já tenho disponíveis para tatuar. Eles podem ser feitos da forma que já estão ou ser modificados conforme o seu gosto. Além disso, pode ser um ponto de partida para algo completamente novo.</p>
+    </div>
+    
+    <div class="flashs-wrapper">
+      <div class="grid-layout-container" id="flashsContainer">
+        
+        <!-- Flashs Visíveis por Padrão com Protocolo de Chat Direto Individualizado -->
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f1').showModal()"><img src="thumb-flash1.png" alt="Flash 1"></button>
+          <dialog id="modal-f1" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash1.png" alt="Flash 1"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%201" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f2').showModal()"><img src="thumb-flash2.png" alt="Flash 2"></button>
+          <dialog id="modal-f2" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash2.png" alt="Flash 2"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%202" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f3').showModal()"><img src="thumb-flash3.png" alt="Flash 3"></button>
+          <dialog id="modal-f3" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash3.png" alt="Flash 3"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%203" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f4').showModal()"><img src="thumb-flash4.png" alt="Flash 4"></button>
+          <dialog id="modal-f4" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash4.png" alt="Flash 4"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%204" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f5').showModal()"><img src="thumb-flash5.png" alt="Flash 5"></button>
+          <dialog id="modal-f5" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash5.png" alt="Flash 5"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%205" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f6').showModal()"><img src="thumb-flash6.png" alt="Flash 6"></button>
+          <dialog id="modal-f6" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash6.png" alt="Flash 6"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%206" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f7').showModal()"><img src="thumb-flash7.png" alt="Flash 7"></button>
+          <dialog id="modal-f7" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash7.png" alt="Flash 7"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%207" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f8').showModal()"><img src="thumb-flash8.png" alt="Flash 8"></button>
+          <dialog id="modal-f8" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash8.png" alt="Flash 8"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%208" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+        <div class="grid-thumb-item">
+          <button onclick="document.getElementById('modal-f9').showModal()"><img src="thumb-flash9.png" alt="Flash 9"></button>
+          <dialog id="modal-f9" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash9.png" alt="Flash 9"><span class="lightbox-close-text">Clique para fechar</span></dialog>
+          <a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%209" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a>
+        </div>
+
+        <!-- Flashs Ocultos - Remessa A (De 10 a 15) -->
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f10').showModal()"><img src="thumb-flash10.png" alt="10"></button><dialog id="modal-f10" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash10.png" alt="10"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2010" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f11').showModal()"><img src="thumb-flash11.png" alt="11"></button><dialog id="modal-f11" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash11.png" alt="11"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2011" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f12').showModal()"><img src="thumb-flash12.png" alt="12"></button><dialog id="modal-f12" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash12.png" alt="12"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2012" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f13').showModal()"><img src="thumb-flash13.png" alt="13"></button><dialog id="modal-f13" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash13.png" alt="13"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2013" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f14').showModal()"><img src="thumb-flash14.png" alt="14"></button><dialog id="modal-f14" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash14.png" alt="14"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2014" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f15').showModal()"><img src="thumb-flash15.png" alt="15"></button><dialog id="modal-f15" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash15.png" alt="15"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2015" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <!-- Flashs Ocultos - Remessa B (De 16 a 30) -->
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f16').showModal()"><img src="thumb-flash16.png" alt="16"></button><dialog id="modal-f16" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash16.png" alt="16"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2016" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f17').showModal()"><img src="thumb-flash17.png" alt="17"></button><dialog id="modal-f17" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash17.png" alt="17"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2017" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f18').showModal()"><img src="thumb-flash18.png" alt="18"></button><dialog id="modal-f18" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash18.png" alt="18"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2018" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f19').showModal()"><img src="thumb-flash19.png" alt="19"></button><dialog id="modal-f19" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash19.png" alt="19"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2019" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f20').showModal()"><img src="thumb-flash20.png" alt="20"></button><dialog id="modal-f20" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash20.png" alt="20"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2020" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f21').showModal()"><img src="thumb-flash21.png" alt="21"></button><dialog id="modal-f21" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash21.png" alt="21"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2021" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f22').showModal()"><img src="thumb-flash22.png" alt="22"></button><dialog id="modal-f22" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash22.png" alt="22"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2022" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f23').showModal()"><img src="thumb-flash23.png" alt="23"></button><dialog id="modal-f23" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash23.png" alt="23"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2023" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f24').showModal()"><img src="thumb-flash24.png" alt="24"></button><dialog id="modal-f24" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash24.png" alt="24"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2024" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f25').showModal()"><img src="thumb-flash25.png" alt="25"></button><dialog id="modal-f25" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash25.png" alt="25"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2025" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f26').showModal()"><img src="thumb-flash26.png" alt="26"></button><dialog id="modal-f26" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash26.png" alt="26"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2026" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f27').showModal()"><img src="thumb-flash27.png" alt="27"></button><dialog id="modal-f27" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash27.png" alt="27"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2027" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f28').showModal()"><img src="thumb-flash28.png" alt="28"></button><dialog id="modal-f28" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash28.png" alt="28"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2028" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f29').showModal()"><img src="thumb-flash29.png" alt="29"></button><dialog id="modal-f29" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash29.png" alt="29"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2029" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f30').showModal()"><img src="thumb-flash30.png" alt="30"></button><dialog id="modal-f30" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash30.png" alt="30"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2030" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <!-- Flashs Ocultos - Remessa C (De 31 a 37) -->
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f31').showModal()"><img src="thumb-flash31.png" alt="31"></button><dialog id="modal-f31" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash31.png" alt="31"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2031" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f32').showModal()"><img src="thumb-flash32.png" alt="32"></button><dialog id="modal-f32" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash32.png" alt="32"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2032" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f33').showModal()"><img src="thumb-flash33.png" alt="33"></button><dialog id="modal-f33" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash33.png" alt="33"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2033" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f34').showModal()"><img src="thumb-flash34.png" alt="34"></button><dialog id="modal-f34" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash34.png" alt="34"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2034" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f35').showModal()"><img src="thumb-flash35.png" alt="35"></button><dialog id="modal-f35" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash35.png" alt="35"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2035" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f36').showModal()"><img src="thumb-flash36.png" alt="36"></button><dialog id="modal-f36" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash36.png" alt="36"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2036" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+        <div class="grid-thumb-item hidden-item"><button onclick="document.getElementById('modal-f37').showModal()"><img src="thumb-flash37.png" alt="37"></button><dialog id="modal-f37" class="lightbox-overlay-dialog" onclick="this.close()"><img src="alta-flash37.png" alt="37"><span class="lightbox-close-text">Clique para fechar</span></dialog><a href="whatsapp://send?phone=59897192430&text=Quero%20reservar%20o%20Flash%2037" target="_blank" class="link-btn-reserve">[ QUERO ESSE ]</a></div>
+      </div> <!-- Fim do flashsContainer -->
+      
+      <!-- Botão configurado para revelar todos os 28 flashs ocultos de uma vez só -->
+      <button class="btn-trigger-load-more" onclick="revelarMaisItens('flashsContainer', this, 28)">[ VER TODOS OS FLASHS ]</button>
+    </div>
+  </section>
+  <!-- SESSÃO 5: FECHAMENTO (RODAPÉ FINAL CENTRALIZADO NO CELULAR) -->
+  <section class="section-closing-footer">
+    <div class="closing-layout-container">
+      
+      <!-- Bloco de Datas em Cascata -->
+      <div class="closing-dates-block">
+        <div class="row-date-1"><span class="label-prefix italic">DE</span><h2 class="display-date italic">08.OUT</h2></div>
+        <div class="row-date-2"><span class="label-prefix italic">A</span><h2 class="display-date-shifted italic">07.NOV</h2></div>
+        <div class="row-date-3"><p class="display-year-footer italic">2026</p></div>
+      </div>
+      
+      <!-- Bloco de Informações Gerais e Contato -->
+      <div class="closing-details-block">
+        <p class="txt-vagas-limitadas">VAGAS LIMITADAS</p>
+        <p class="txt-address-location">AV. POMPÉIA, 1969 - V. POMPÉIA</p>
+        
+        <div class="booking-action-box">
+          <p class="txt-label-reservas">INFO E RESERVAS</p>
+          <div class="footer-icon-links">
+            <a href="whatsapp://send?phone=59897192430&text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20seus%20trabalhos." target="_blank" aria-label="WhatsApp">
+              <img src="icone-wpp.png" alt="WhatsApp" class="custom-footer-icon">
+            </a>
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+              <img src="icone-ig.png" alt="Instagram" class="custom-footer-icon">
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Linha de rodapé com texto de direitos reservados -->
+    <div class="footer-copyright-text">
+      © 2026 LAMBRETATTOO. TODOS OS DIREITOS RESERVADOS.
+    </div>
+  </section>
+  <!-- LÓGICA DE CONTROLE DO SITE (JavaScript Integrado) -->
+  <script>
+    // Controla o sumiço do indicador de Scroll da Home ao rolar a página
+    window.addEventListener('scroll', function() {
+      const indicator = document.getElementById('home-scroll-indicator');
+      if (indicator) {
+        if (window.scrollY > 60) {
+          indicator.style.opacity = '0';
+          indicator.style.visibility = 'hidden';
+        } else {
+          indicator.style.opacity = '1';
+          indicator.style.visibility = 'visible';
+        }
+      }
+    });
+
+    // Controla a revelação em lote das miniaturas ocultas (Galeria e Flashs)
+    function revelarMaisItens(containerId, botao, quantidade) {
+      const ocultos = document.querySelectorAll('#' + containerId + ' .hidden-item');
+      let exibidos = 0;
+      ocultos.forEach(item => {
+        if (exibidos < quantidade) {
+          item.classList.remove('hidden-item');
+          exibidos++;
+        }
+      });
+      const restantes = document.querySelectorAll('#' + containerId + ' .hidden-item');
+      if (restantes.length === 0) {
+        botao.style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+</html>
+<!-- FIM COMPLETO DO ARQUIVO index.html -->
